@@ -31,13 +31,20 @@ for p in range(problacion):
     input_image = Image.open(filename)
     input_image = input_image.convert('RGB')
     pixeles = input_image.load()
-    for x in range(input_image.width):
-        for y in range(input_image.height):
-            rr = random.randint(0,100)
-            gr = random.randint(0,100)
-            br = random.randint(0,100)
-            r, g, b = pixeles[x, y]
-            r, g, b = pixeles[x, y] = ( r + rr, g + gr ,  b + br )
+    #for x in range(input_image.width):
+    #    for y in range(input_image.height):
+    #        rr = random.randint(0,50)
+    #        gr = random.randint(0,50)
+    #        br = random.randint(0,50)
+    #        r, g, b = pixeles[x, y]
+    #        r, g, b = pixeles[x, y] = ( r - rr, g - gr ,  b - br )
+    xCoord = random.randint(0,input_image.width)
+    yCoord = random.randint(0,input_image.width)
+    rr = random.randint(0,255)
+    gr = random.randint(0,255)
+    br = random.randint(0,255)
+    r, g, b = pixeles[xCoord, yCoord]
+    r, g, b = pixeles[xCoord, yCoord] = ( r - rr, g - gr ,  b - br )
     preprocess = transforms.Compose([
         transforms.Resize(256),
         transforms.CenterCrop(224),
@@ -70,4 +77,5 @@ for p in range(problacion):
             masProbable = categories[top5_catid[i]]
             print(categories[top5_catid[i]], top5_prob[i].item())
     print(masProbable)
-    input_image.save('noise.jpg')
+
+input_image.save('noise.jpg')
